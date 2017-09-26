@@ -1,0 +1,247 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// #logo{
+//     background-image: url("header_logo.png");
+//     background-size: cover;
+//     background-repeat: no-repeat;
+//     height:20px !important;
+// }
+
+hr{
+    margin-top:1px !important;
+}
+
+
+// 제이쿼리 아코디언 시작
+
+.ui-corner-all{
+    
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.ui-corner-top{
+    border-top-right-radius: 20px !important;
+    border-top-left-radius: 20px !important;
+}
+
+.ui-corner-bottom{
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.ui-widget-content{
+    border:1px solid #d1C4CD;
+}
+
+.ui-state-default{
+    border: 1px solid #D5DEDA !important;
+    background: #D5DEDA !important;
+    color: #ffffff !important;
+}
+
+#info_submit{
+    background-color: #d1C4CD;
+}
+
+#ui-id-1{
+    height:100%;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+// 제이쿼리 아코디언 끝
+
+#pageone { 
+    height:100%;
+}
+#list{ 
+    min-height:100px;
+    // height: 600px;
+    // width: 100%;
+    // overflow-y: scroll;
+    // overflow-x:hidden;
+    // -ms-overflow-style: none; 
+}
+::-webkit-scrollbar {
+    display:none;
+}
+
+.ui-header{
+    min-height:50px;
+    background-color:#2854a2;
+    border-radius: 0px 0px 10px 10px;
+    color: white;
+}
+
+#logo{
+    background-image: url("header_logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left:auto;
+    margin-right: auto;
+    min-height:50px;
+    
+}
+
+.logo-section{
+
+}
+
+.ui-footer{
+    background-color:#2854a2;
+    border-radius: 10px 10px 0px 0px;
+    color: white;
+}
+
+.devise_section{
+    border: 5px solid #d1C4CD;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 20%;
+    margin-bottom :27%;
+    padding: 20px;
+}
+
+#check_box{
+    margin-top:1px;
+    margin-right:4px;
+}
+
+.field p{
+    margin-bottom:0px;
+}
+
+#info_submit{
+    margin-bottom: 40%;
+}
+
+.border_section{
+    border: 5px solid #d1C4CD;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 0%;
+    margin-bottom :10%;
+    padding: 20px;
+}
+
+.border_section2{
+    border: 5px solid #d1C4CD;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 0%;
+    margin-bottom :50%;
+    padding: 20px;
+}
+
+a{
+    text-decoration:none;
+    color:#8C838A !important;
+}
+
+#sum{
+     border-bottom: solid #2854a2;
+}
+
+#paid_panelty{
+    border-bottom: solid #2854a2;
+}
+
+.user_button{
+    background-color: white; 
+    color:#d1C4CD;
+}
+
+
+.not_important_button{
+    background-color:#d1C4CD;
+    color:white;
+}
+
+.important_button{
+    background-color:#2854a2;
+}
+
+.important_button span{
+    color: white;
+}
+
+.summary_info_text p{ 
+    color:#2854a2;
+}
+
+#non_paid_box{
+    border:1px solid #F49A04;
+    border-radius: 2px 2px 2px 2px;
+}
+
+.non_paid_text{
+    color: #F49A04;
+}
+
+#ok_paid_box{
+    background-color: #F49A04;
+    border-radius: 2px 2px 2px 2px;
+}
+
+.ok_paid_text{
+    color: #F49A04;
+}
+
+.title h4{
+    color:#d1C4CD;
+}
+
+.content p{
+    color:#d1C4CD;
+}
+
+#user_count p{
+    color:#2854a2;
+}
+
+.recoding_day h4{
+    color: #d1C4CD;
+}
+
+.panelty_button{
+    border:1px solid #F49A04 !important;
+    background-color: #ffffff !important;
+    color: #F49A04 !important;
+}
+
+.panelty_button_clicked{
+    background-color:#F49A04 !important;
+    color: #ffffff !important;
+}
+
+#footer_logo{
+    background-image: url("basiclogo_E_H_W.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left:auto;
+    margin-right: auto;
+    min-height:30px;
+}
+
+
+@media (min-width: 1025px) {
+    .ui-header{
+        margin: auto; width:500px;
+       
+    }
+    
+    .ui-content{
+        margin-top:10px; 
+        margin-left:auto;
+        margin-right:auto;
+        margin-bottom:10px;
+        width:440px;
+    }
+    .ui-footer{
+        margin:auto; width:500px;
+    }
+    .ui-footer p{
+        margin-bottom:0px;
+        
+    }
+}

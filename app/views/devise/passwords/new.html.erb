@@ -1,0 +1,24 @@
+<div class="devise_section">
+  <div class="row justify-content-center">
+    <h2>비밀번호를 잊으셨나요?</h2>
+  </div>
+  
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= devise_error_messages! %>
+  
+    <div class="field row justify-content-center mt-4">
+      <div class="col-12 text-center">
+        <p><%= f.label :email %> 주소</p>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+    </div>
+  
+    <div class="actions row justify-contegggggnt-center mt-5">
+      <button class="btn col-6 important_button"><span><% f.submit "Send me reset password instructions" %>재설정 비번 보내기</span></button>
+    </div>
+  <% end %>
+    <hr>
+    <div class="ml-2">
+      <%= render "devise/shared/links" %>
+    </div>
+</div>

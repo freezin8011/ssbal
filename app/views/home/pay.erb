@@ -1,0 +1,68 @@
+
+<!--월과 일 정하고 돈낼 사람과 그 액수 정하는 창-->
+<div id="user_count" class="row justify-content-end">
+  <div class="col-5 text-center mx-0">
+    <p class="mb-0 mt-2">나같은 총무들 00 명</p>
+  </div>
+</div>
+<div id="user_count" class="row justify-content-end">
+  <div class="col-3 mx-0">
+    <% if user_signed_in? %>
+      <!--<p>현재 로그인된 유저의 이메일 : <%= current_user.email %></p>-->
+      <button type="button" class="btn btn-sm  user_button mt-1"><%= link_to "로그아웃", destroy_user_session_path, method: :delete, data: { confirm: "확실합니까?" } %></button>
+    <% else %>
+      <button  type="button" class="btn btn-sm user_button mt-1"><%= link_to "로그인", new_user_session_path %></button>
+    <% end %>
+  </div>
+</div>
+ 
+
+<form action="/home/comment" method="post">
+  <div class="border_section2">
+<div class="to_pay_list">
+      <div class="row justify-content-center mb-4">
+        <input  class="form-control col-3" type="text" placeholder="이름" name="name0">
+        <div class="col-2"></div>
+        <input class="form-control col-3" type="text" placeholder="액수" name="money0">
+        <button type="button" class="btn not_important_button btn-sm ml-2" data-placement="bottom" data-toggle="popover" title="벌금 입력시" data-content="200, 300 이렇게 입력해주세요."><strong>?</strong></button>
+      </div>
+    <!--<button type="button" class="btn btn-light col">추가</button>   버튼 눌려서 자동으로 '란'을 추가시키고 싶다.-->
+    </div>
+    <div class="row justify-content-center my-4">
+      <button class="btn btn-light col-4 important_button" id="addBtn"><span style="font-size: 15px">인원 추가</span></button>
+      <input id="count" type="hidden" name="count" value="1">
+    </div>
+    <hr>
+    <input type="hidden" name="day_id" value="<%= @month_day.last.id %>">
+    <div class="row justify-content-center">
+    <button type="submit" class="btn btn-light col-6 important_button"><span style="font-size: 20px">제출</span></button>
+    </div>
+  </div>
+</form>
+
+
+
+<script>
+    $(document).ready(function() {
+        var max_fields      = 6; //maximum input boxes allowed
+        var wrapper         = $(".to_pay_list"); //Fields wrapper
+        var add_button1      = $("#addBtn"); //Add button ID
+        var count = 1;
+        var x = 0; //initlal text box count
+        
+        $(add_button1).click(function(e){ //on add input button click
+            e.preventDefault();
+            $("#count").val(++count);
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div class="to_pay_list"><div class="row justify-content-center mb-4"><input class="form-control col-3" id="exampleInputName1" placeholder="이름" name="name'+ x +'"><div class="col-2"></div><input type="text" class="form-control col-4" id="exampleInputName2" placeholder="액수" name="money'+ x +'"></div></div>'); //add input box
+                //$("#maincount").val(x);
+            }
+        });
+    });
+</script>
+<script>
+  $(document).ready(function(){
+      $('[data-toggle="popover"]').popover(); 
+  });
+</script>

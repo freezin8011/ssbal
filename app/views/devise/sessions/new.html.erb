@@ -1,0 +1,35 @@
+  <div class="devise_section">
+    <h4 class="row justify-content-center mb-4">힘드시죠, 도와드릴게요.</h4>
+  <div class="row justify-content-center">
+    <h2 class="col-">로그인</h2>
+  </div>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field row justify-content-center mt-4">
+      <div class="col-12 text-center">
+        <p><%= f.label :email %> 주소</p>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+    </div>
+    <div class="field row justify-content-center mt-4">
+      <div class="col-12 text-center">
+        <p><%= f.label :password %></p>
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+    </div>
+  
+    <% if devise_mapping.rememberable? -%>
+      <div class="field row justify-content-center mt-2">
+        <div id="check_box"><%= f.check_box :remember_me %></div>
+        <p><% f.label :remember_me %>아이디 비번 저장</p>
+      </div>
+    <% end %>
+  
+    <div class="actions row justify-content-center mt-4">
+      <button class="btn col-6 important_button"><span><% f.submit "Log in" %>로그인</span></button>
+    </div>
+  <% end %>
+  <hr>
+  <div class="ml-2">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

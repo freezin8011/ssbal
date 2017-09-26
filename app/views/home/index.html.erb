@@ -1,0 +1,192 @@
+<div id="user_count" class="row justify-content-around">
+  <p class="col-6 text-center mx-2 mb-0 mt-2"><%= current_user.email %></p>
+  <p class="col-5 text-right mx-2 mb-0 mt-2">총무들 00 명</p>
+</div>
+<div id="user_count" class="row justify-content-end">
+  <div class="col-12 mt-1 mb-0 row justify-content-end">
+    <% if user_signed_in? %>
+      <%= link_to "로그아웃", destroy_user_session_path, method: :delete, data: { confirm: "확실합니까?" }, class: "col-3" %>
+    <% else %>
+      <%= link_to "로그인", new_user_session_path %>
+    <% end %>
+  </div>
+</div>
+<div id="accordion" class="mx-5 mt-4" >
+  <h3 id="study_info" class="text-center">정보</h3>
+  <div>
+    <% if @study_info.first == nil %>
+    <form action="/home/board" method="post">
+      <div>
+         <div class="row mt-3 mb-3 justify-content-center">
+          <div class="col-12 text-center">
+            <p class="mb-0"><label>스터디 이름</label></p>
+          </div>
+          <div class="col-12">
+            <input type='text' class="form-control" id="exampleInputPassword1" name='title' placeholder="">
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center">
+          <div class="col-12 text-center">
+            <p class="mb-0"><label>벌금제도</label></p>
+          </div>
+          <div class="col-12">
+            <textarea class="form-control" rows="5" name="content" placeholder="벌금제 관련 사항을 기입"></textarea>
+          </div>
+          <div  class="col- mt-3 justify-content-center">
+            <button id="info_submit" type="submit" class="btn important_button btn-sm"><span style="font-size: 10px">제출</span></button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <% else %>
+      <% @study_info.each do |s| %>
+        <div class="title mt-4">
+          <h4 class="text-center"><%= s.title %></h4>
+        </div>
+        <div class="content">
+          <p class="text-center"><%= s.content %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<form action="/home/write" method="post">
+  <input type="hidden" name="day_written_by" value="<%= current_user.id %>">
+  <div class="border_section">
+    <div class="mb-3 row justify-content-center">
+      <div class="form-group col-6 row">
+        <select class="form-control form-control-sm col-8" id="exampleFormControlSelect1" name="month">
+          <% 12.times do |i| %>
+           <option value="1"><%=i+1%></option>
+          <% end %>
+        </select>
+        <label class="text-center col-2" for="exampleFormControlSelect1">월</label>
+      </div>
+      <div class="form-group col-6 row">
+        <select class="form-control form-control-sm col-8" id="exampleFormControlSelect1" name="day">
+          <% 31.times do |i| %>
+            <option value="1"><%= i+1 %></option>
+          <% end %>
+        </select>
+        <label class="text-center col-2" for="exampleFormControlSelect1">일</label>
+      </div>
+    </div>
+    <!--<input type="hidden" name="post_id" value="post_id">-->
+    <div class="row justify-content-center">
+    <button type="submit" class="btn btn-light col-6 important_button"><span style="font-size: 20px">벌금 기록하기</span></button>
+    </div>
+  </div>  
+</form>
+
+<!--벌금 종합-->
+<div class="summary_info row justify-content-around">
+  <div id="sum" class="col-4 justify-content-center px-0">
+      <h3 class="text-center"><%= @total_money %> ￦</h3>
+  </div>
+  <div id="paid_panelty" class="col-4 justify-content-center px-0">
+    <h3 class="text-center"><%= @total_receive %> ￦</h3>
+  </div>
+</div>
+<div class="summary_info_text row justify-content-around pb-5">
+  <div class="col-4 text-center ">
+    <p>총 벌금</p>
+  </div>
+  <div class="col-4 text-center">
+    <p>받은 벌금</p>
+  </div>
+</div>
+
+
+  <!--납부와 미납의 차이 설명하는 곳-->
+  <% if @month_day.first == nil %>
+  <% else %>
+  <div class="row paid_info justify-content-left pt-5">
+    <div class="col-1"></div>
+    <div class="row col-4">
+      <div id="non_paid_box" class="col-1"></div>
+      <p class="non_paid_text col- mb-0 ml-1">미납</p>
+    </div>
+    <div class="row col-4">
+      <div id="ok_paid_box" class="col-1"></div>
+      <p class="ok_paid_text col- mb-0 ml-1">납부완료</p>
+    </div>
+  </div>
+  <% end %>
+  <!--벌금 낼 사람들 스터디 회차별로 보는 곳 // 여기만 따로 스크롤 바 만들기-->
+  <div id="list">
+    <% @month_day.each do |m| %>
+      <div class="panelty_info mb-5">
+        <form action="/home/update" method="post">
+          <input type="hidden" name="id" value="<%= m.id %>">
+          <hr>
+          <div class="row justify-content-between recoding_day mb-3 mx-2">
+            <h4 class="col-"><%= m.month %>월 <%= m.day %>일</h4>
+            <div class="col-6 row justify-content-around">
+              <button type="submit" class="btn btn-light col-4 important_button"><span style="font-size: 10px">저장</span></button>
+              <button type="submit" class="btn btn-light col-4 important_button" onclick="myFunction()"><a href="/destroy/<%= m.id %>"><span style="font-size: 10px">삭제</span></a></button>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <% m.panelties.each do |p| %>  
+            <div id="pay_check"class="col- mb-2 mx-2 mt-4">
+              <% if p.status == 0 %>
+                <button type="button" class="btn panelty_button" onclick="btnClickEvent(event)">
+              <% elsif p.status == 1 %>
+                <button type="button" class="btn panelty_button_clicked" onclick="btnClickEvent(event)">
+              <% end %>
+                 <h4><%= p.name %></h4>
+                 <p class="mb-0"><%= p.money %>원</p>
+                 <input type="hidden" name="status<%= @count %>" value="<%= p.status %>">
+               </button>
+             </div>
+            <% @count += 1%>
+            <% end %>      
+          </div>
+        </form>
+        <% @count = 0 %>
+      </div>
+    <% end %>
+</div>
+<script>
+  function btnClickEvent(event) {
+    var clickObject = event.target;  // 클릭한 object
+    
+    if (clickObject.nodeName == "BUTTON") {  // 클릭한게 <button>이면
+      // class name change
+      if (clickObject.className == "btn panelty_button_clicked") {  // class가 clicked(돈 낸 상태)이면
+        clickObject.className = "btn panelty_button";  // class를 안 낸 상태로
+        // console.log(clickObject);  // 개발자도구 console에 로그 찍기
+        clickObject.children[2].value = 0;  // input value 값 0으로 변경
+      } else {
+        clickObject.className = "btn panelty_button_clicked";  // 바로 위와 반대 동작
+        clickObject.children[2].value = 1;
+        console.log(clickObject);
+      }
+      // console.log(event.target.className);
+    } else {  // 클릭한게 <button>이 아니면
+      // console.log(event.target.parentNode);
+      if (clickObject.parentNode.className == "btn panelty_button_clicked") {  // 상위 태그의 class에 따라서 위와 비슷한 동작 실행
+        clickObject.parentNode.className = "btn panelty_button";
+        console.log(clickObject);
+        clickObject.parentNode.children[2].value = 0;
+      } else {
+        console.log(clickObject);
+        clickObject.parentNode.className = "btn panelty_button_clicked";
+        clickObject.parentNode.children[2].value = 1;
+      }
+    }
+    // console.log(event.target.parentNode);
+  }
+</script>
+<script>
+  $( function() {
+    $( "#accordion" ).accordion({
+      collapsible: true, active: false 
+    });
+  } );
+</script>
+<script>
+function myFunction() {
+    confirm("정말 삭제합니까");
+}
+</script>
